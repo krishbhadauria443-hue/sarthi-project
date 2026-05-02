@@ -3,7 +3,6 @@
 import Sidebar from "@/components/Sidebar";
 import { Zap, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export default function AddProject() {
@@ -18,10 +17,11 @@ export default function AddProject() {
     try {
       setLoading(true);
 
-      // ✅ Ensure runs only in browser
       if (typeof window === "undefined") return;
 
-      // ✅ Get logged-in user safely
+      // ✅ Lazy import supabase
+      const { supabase } = await import("@/lib/supabase");
+
       const { data, error: userError } = await supabase.auth.getUser();
 
       if (userError) {
@@ -37,7 +37,6 @@ export default function AddProject() {
         return;
       }
 
-      // ✅ Insert project
       const { error } = await supabase.from("projects").insert([
         {
           name: projectName,
