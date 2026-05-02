@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Rocket, Shield, Download, LayoutDashboard, Globe, Terminal, Code, Cpu, Zap, Layers, Sparkles } from "lucide-react";
+import { Rocket, Shield, Cpu, Zap, Layers, Sparkles } from "lucide-react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 const Card3D = ({ children, className }: { children: React.ReactNode; className?: string }) => {
@@ -159,15 +159,15 @@ export default function LandingPage() {
                       <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
                    </div>
                    <div className="flex-1 font-mono text-sm space-y-2 opacity-80">
-                      <div className="flex gap-4"><span className="text-slate-600">01</span><span className="text-blue-400">import</span> <span>&#123; Architect &#125;</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">"@sarthi/core"</span>;</div>
+                      <div className="flex gap-4"><span className="text-slate-600">01</span><span className="text-blue-400">import</span> <span>&#123; Architect &#125;</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">&quot;@sarthi/core&quot;</span>;</div>
                       <div className="flex gap-4"><span className="text-slate-600">02</span><span>&nbsp;</span></div>
                       <div className="flex gap-4"><span className="text-slate-600">03</span><span className="text-purple-400">const</span> <span>workspace</span> = <span className="text-blue-400">await</span> <span>Architect</span>.<span className="text-yellow-400">connect</span>(&#123;</div>
-                      <div className="flex gap-4"><span className="text-slate-600">04</span><span className="ml-4 text-slate-400">id:</span> <span className="text-emerald-400">"quantum-v4"</span>,</div>
+                      <div className="flex gap-4"><span className="text-slate-600">04</span><span className="ml-4 text-slate-400">id:</span> <span className="text-emerald-400">&quot;quantum-v4&quot;</span>,</div>
                       <div className="flex gap-4"><span className="text-slate-600">05</span><span className="ml-4 text-slate-400">mesh:</span> <span className="text-blue-400">true</span></div>
                       <div className="flex gap-4"><span className="text-slate-600">06</span><span>&#125;);</span></div>
                       <div className="flex gap-4"><span className="text-slate-600">07</span><span>&nbsp;</span></div>
                       <div className="flex gap-4"><span className="text-slate-600">08</span><span>workspace</span>.<span className="text-yellow-400">onSync</span>(() =&gt; &#123;</div>
-                      <div className="flex gap-4"><span className="text-slate-600">09</span><span className="ml-4">console</span>.<span className="text-yellow-400">log</span>(<span className="text-emerald-400">"Mesh replicated globally"</span>);</div>
+                      <div className="flex gap-4"><span className="text-slate-600">09</span><span className="ml-4">console</span>.<span className="text-yellow-400">log</span>(<span className="text-emerald-400">&quot;Mesh replicated globally&quot;</span>);</div>
                       <div className="flex gap-4"><span className="text-slate-600">10</span><span>&#125;);</span></div>
                    </div>
                    <div className="mt-8 pt-8 border-t border-white/5 flex justify-between items-center">

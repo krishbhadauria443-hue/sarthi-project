@@ -3,6 +3,16 @@
 import { Folder, FolderOpen, ChevronDown, ChevronRight, FileCode, FileJson, FileText, Settings, PlusSquare } from "lucide-react";
 import { useState } from "react";
 
+type FileNode = {
+  name: string;
+  type: string;
+  isOpen?: boolean;
+  children?: FileNode[];
+  icon?: React.ElementType;
+  color?: string;
+  isActive?: boolean;
+};
+
 const fileTree = [
   {
     name: "src",
@@ -56,7 +66,7 @@ export default function FileExplorer() {
   );
 }
 
-function FileTreeNode({ node, depth }: { node: any; depth: number }) {
+function FileTreeNode({ node, depth }: { node: FileNode; depth: number }) {
   const [isOpen, setIsOpen] = useState(node.isOpen || false);
   const Icon = node.icon || (isOpen ? FolderOpen : Folder);
   const paddingLeft = depth * 12 + 24;
@@ -80,7 +90,7 @@ function FileTreeNode({ node, depth }: { node: any; depth: number }) {
       </div>
       {node.type === "folder" && isOpen && (
         <div className="space-y-1">
-          {node.children.map((child: any) => (
+          {node.children?.map((child: FileNode) => (
             <FileTreeNode key={child.name} node={child} depth={depth + 1} />
           ))}
         </div>

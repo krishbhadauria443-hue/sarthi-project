@@ -5,10 +5,11 @@ import Navbar from "@/components/Navbar";
 import { User, Shield, Key, Code, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const router = useRouter();
 
   // 🔐 PROTECT + FETCH USER
@@ -24,7 +25,7 @@ export default function ProfilePage() {
     };
 
     getUser();
-  }, []);
+  }, [router]);
 
   // 👤 Generate initials
   const getInitials = () => {

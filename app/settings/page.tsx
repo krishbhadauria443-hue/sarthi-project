@@ -2,19 +2,19 @@
 
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
-import { Settings, Bell, Palette, Monitor, Globe, Shield } from "lucide-react";
+import { Bell, Palette } from "lucide-react";
 import { useState } from "react";
 
 export default function SettingsPage() {
   const [theme, setTheme] = useState("Dark");
-  const [notifications, setNotifications] = useState({
+  const [notifications, setNotifications] = useState<Record<string, boolean>>({
     "Email alerts on deployment success": true,
     "Browser notifications for sync errors": false,
     "Weekly project activity digest": true,
   });
 
   const toggleNotification = (key: string) => {
-    setNotifications((prev: any) => ({ ...prev, [key]: !prev[key] }));
+    setNotifications((prev: Record<string, boolean>) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (

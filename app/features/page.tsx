@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Rocket, Shield, Cpu, Zap, Layers, Sparkles, Network } from "lucide-react";
+import { Rocket, Shield, Cpu, Zap, Layers, Sparkles, Network } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function FeaturesPage() {

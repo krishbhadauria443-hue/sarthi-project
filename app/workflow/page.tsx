@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Terminal, Code, Rocket, CheckCircle2, ArrowRight, Share2, Globe } from "lucide-react";
+import { Terminal, Rocket, ArrowRight, Share2, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function WorkflowPage() {

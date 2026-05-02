@@ -5,10 +5,10 @@ import Navbar from "@/components/Navbar";
 import { TrendingUp, Activity, PieChart, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export default function AnalyticsPage() {
-  // ✅ Generate once (outside render loop)
-  const heights = Array.from({ length: 24 }, () => Math.random() * 80 + 20);
+// ✅ Generate once (outside render loop)
+const heights = Array.from({ length: 24 }, () => Math.random() * 80 + 20);
 
+export default function AnalyticsPage() {
   return (
     <div className="bg-[#081425] min-h-screen text-on-background font-body antialiased">
       <Navbar />

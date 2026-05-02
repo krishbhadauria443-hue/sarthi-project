@@ -28,7 +28,7 @@ export default function Dashboard() {
     };
 
     checkUser();
-  }, []);
+  }, [router]);
 
   // ✅ Fetch ONLY user projects
   const fetchProjects = async (userId: string) => {
