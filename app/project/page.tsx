@@ -1,7 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { FileCode } from "lucide-react";
@@ -18,7 +18,7 @@ type FileType = {
   project_id: string;
 };
 
-export default function ProjectViewer() {
+function ProjectViewerContent() {
   const [project, setProject] = useState<Project | null>(null);
   const [files, setFiles] = useState<FileType[]>([]);
   const [selectedFile, setSelectedFile] = useState<FileType | null>(null);
@@ -196,5 +196,13 @@ export default function ProjectViewer() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function ProjectViewer() {
+  return (
+    <Suspense fallback={<div className="bg-[#081425] min-h-screen text-white flex items-center justify-center">Loading...</div>}>
+      <ProjectViewerContent />
+    </Suspense>
   );
 }

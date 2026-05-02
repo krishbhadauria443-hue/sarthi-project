@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
-import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 type Project = {
@@ -18,6 +17,7 @@ export default function Dashboard() {
   // 🔐 Protect page
   useEffect(() => {
     const checkUser = async () => {
+      const { supabase } = await import("@/lib/supabase");
       const { data } = await supabase.auth.getUser();
 
       if (!data.user) {
@@ -32,6 +32,7 @@ export default function Dashboard() {
 
   // ✅ Fetch ONLY user projects
   const fetchProjects = async (userId: string) => {
+    const { supabase } = await import("@/lib/supabase");
     const { data, error } = await supabase
       .from("projects")
       .select("*")
@@ -90,6 +91,7 @@ export default function Dashboard() {
         const confirmDelete = confirm("Delete this project?");
         if (!confirmDelete) return;
 
+        const { supabase } = await import("@/lib/supabase");
         await supabase
           .from("projects")
           .delete()

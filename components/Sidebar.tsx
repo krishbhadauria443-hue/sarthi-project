@@ -11,7 +11,6 @@ import {
   LogOut, // ✅ ADDED
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase"; // ✅ ADDED
 
 const navItems = [
   { label: "Overview", icon: LayoutDashboard, href: "/dashboard" },
@@ -27,6 +26,7 @@ export default function Sidebar() {
 
   // ✅ LOGOUT FUNCTION
   const handleLogout = async () => {
+    const { supabase } = await import("@/lib/supabase"); // ✅ Lazy import
     await supabase.auth.signOut();
     window.location.href = "/login";
   };
