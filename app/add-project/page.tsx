@@ -3,50 +3,67 @@
 import Sidebar from "@/components/Sidebar";
 import { Zap, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export default function AddProject() {
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [localPath, setLocalPath] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = async () => {
-    // ✅ Get logged-in user
-    const { data: userData, error: userError } =
-      await supabase.auth.getUser();
+    try {
+      setLoading(true);
 
-    const user = userData?.user;
+      // ✅ Ensure runs only in browser
+      if (typeof window === "undefined") return;
 
-    if (!user) {
-      alert("Please login first");
-      return;
-    }
+      // ✅ Get logged-in user safely
+      const { data, error: userError } = await supabase.auth.getUser();
 
-    // ✅ Insert project
-    const { error } = await supabase.from("projects").insert([
-      {
-        name: projectName, // ✅ FIXED
-        description,
-        local_path: localPath, // ✅ FIXED
-        user_id: user.id,
-      },
-    ]);
+      if (userError) {
+        console.error(userError);
+        alert("Error fetching user ❌");
+        return;
+      }
 
-    if (error) {
-      console.log(error);
-      alert("Error creating project ❌");
-    } else {
-      alert("Project created successfully 🚀");
+      const user = data?.user;
 
-      // ✅ Reset form
-      setProjectName("");
-      setDescription("");
-      setLocalPath("");
+      if (!user) {
+        alert("Please login first");
+        return;
+      }
 
-      // ✅ Navigate to dashboard
-      router.push("/dashboard");
+      // ✅ Insert project
+      const { error } = await supabase.from("projects").insert([
+        {
+          name: projectName,
+          description,
+          local_path: localPath,
+          user_id: user.id,
+        },
+      ]);
+
+      if (error) {
+        console.error(error);
+        alert("Error creating project ❌");
+      } else {
+        alert("Project created successfully 🚀");
+
+        setProjectName("");
+        setDescription("");
+        setLocalPath("");
+
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,7 +89,6 @@ export default function AddProject() {
         </header>
 
         <div className="bg-[#111c2d] p-8 rounded-xl space-y-6">
-          {/* Project Name */}
           <input
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
@@ -80,7 +96,6 @@ export default function AddProject() {
             placeholder="Project Name"
           />
 
-          {/* Description */}
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -89,7 +104,6 @@ export default function AddProject() {
             rows={4}
           />
 
-          {/* Local Path */}
           <input
             value={localPath}
             onChange={(e) => setLocalPath(e.target.value)}
@@ -97,13 +111,13 @@ export default function AddProject() {
             placeholder="Local folder path (e.g. C:/Users/HP/Desktop/project)"
           />
 
-          {/* Button */}
           <button
             onClick={handleSubmit}
+            disabled={loading}
             className="w-full py-5 bg-gradient-to-br from-[#c0c1ff] to-[#8083ff] rounded-xl flex items-center justify-center gap-3"
           >
             <span className="text-lg font-bold text-[#0d0096]">
-              Initialize Project
+              {loading ? "Creating..." : "Initialize Project"}
             </span>
             <ArrowRight className="w-5 h-5 text-[#0d0096]" />
           </button>
